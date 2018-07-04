@@ -2,25 +2,21 @@
 /* You may use this as is, but fill in getPrediction and updatePrediction */
 
 #include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
 
+int taken = 0, notTaken = 0;
 //UPDATE THIS FUNCTION
 int getPrediction() {
-	return (rand() % 100);
-	//return 1; //You make this part
+	return 1; //You make this part
 }
 
 //UPDATE THIS FUNCTION
 void updatePrediction(int outcome) {
-	
 	return; //You make this part
 }
 
 int main() {
-	srand(time(NULL));
 	FILE *fp, *fpw;
-	fp = fopen("BranchInput1.txt", "r");
+	fp = fopen("BranchInput2.txt", "r");
 	fpw = fopen("Output.txt", "w");
 	int outcome, prediction;
 	int counter = 0, correct = 0, incorrect = 0;
