@@ -2,6 +2,8 @@
 /* You may use this as is, but fill in getPrediction and updatePrediction */
 
 #include <stdio.h>
+
+int taken = 0, notTaken = 0;
 //UPDATE THIS FUNCTION
 int getPrediction() {
 	return 1; //You make this part
@@ -14,7 +16,7 @@ void updatePrediction(int outcome) {
 
 int main() {
 	FILE *fp, *fpw;
-	fp = fopen("BranchInput1.txt", "r");
+	fp = fopen("BranchInput2.txt", "r");
 	fpw = fopen("Output.txt", "w");
 	int outcome, prediction;
 	int counter = 0, correct = 0, incorrect = 0;
