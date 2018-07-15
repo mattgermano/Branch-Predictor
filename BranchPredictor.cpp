@@ -1,24 +1,38 @@
-//look at past 4-bit groupings
 #include <iostream>
 #include <fstream>
 #include <bitset>
 #include <vector>
 
-using namespace std;
-
-bitset<5> bitset1 (string("00000"));  //set a bitset to all 0's
-bitset<5> bitset2 (string("00000"));  //set a bitset to all 0's
-bitset<5> bitset3 (string("00000"));  //set a bitset to all 0's
-bitset<5> bitset4 (string("00000"));  //set a bitset to all 0's
-bitset<5> bitset5 (string("00000"));  //set a bitset to all 0's
-bitset<4> last_4 (string("0000"));
-vector<bitset<5>> list;
-int counter = 0;
-
 #define A last_4[0]
 #define B last_4[1]
 #define C last_4[2]
 #define D last_4[3]
+#define E last_4[4]
+
+using namespace std;
+
+/**
+ * Initializes five bitsets of size 5 to keep track of 5-bit groupings
+ * last_4 is used to store the last 4 outcomes
+ * list is used to store all the 5-bit bitsets
+ * counter is used to keep track of which outcome the program is predicting
+ */
+bitset<5> bitset1 (string("00000")); 
+bitset<5> bitset2 (string("00000")); 
+bitset<5> bitset3 (string("00000")); 
+bitset<5> bitset4 (string("00000")); 
+bitset<5> bitset5 (string("00000")); 
+bitset<4> last_4 (string("0000")); 
+vector<bitset<5>> list; 
+int counter = 0;
+
+
+/**
+ * Loops through the vector and compares all the bitsets to the last 4 outcomes and makes a prediction 
+ * based on the relationship between them. If there are no bitsets in the vector or there is no relationship between
+ * the last four outcomes and any bitset in the vector, then predict 1 because 1's occur the most between the two 
+ * branch files.  
+ */ 
 
 int getPrediction() {
     int taken = 0;
@@ -37,7 +51,11 @@ int getPrediction() {
     return 1;
 }
 
-void updatePrediction(int outcome) {//creates a 5-bit bitset of each history of 5 bits long
+/**
+ * Left shift the outcomes into the bitsets.
+ * Once a bitset is filled with outcomes the bitset will be pushed into the vector
+ */
+void updatePrediction(int outcome) {
     last_4 <<= 1;
     if(outcome == 1) {last_4.set(0,1);}
 
@@ -62,24 +80,24 @@ void updatePrediction(int outcome) {//creates a 5-bit bitset of each history of 
         bitset1 <<= 1; bitset2 <<= 1; bitset3 <<= 1; bitset4 <<= 1; bitset5 <<= 1;
         if(outcome == 1) {bitset1.set(0,1); bitset2.set(0,1); bitset3.set(0,1); bitset4.set(0,1); bitset5.set(0,1);}
         if(counter % 5 == 0) {
-            list.push_back(bitset1);//add it to the vector
-            bitset1.set();//set bitset to all 1's
+            list.push_back(bitset1);
+            bitset1.set();
         }
         else if((counter-1) % 5 == 0) {
-            list.push_back(bitset2);//add it to the vector
-            bitset2.set();//set bitset to all 1's
+            list.push_back(bitset2);
+            bitset2.set();
         }
         else if((counter-2) % 5 == 0) {
-            list.push_back(bitset3);//add it to the vector
-            bitset3.set();//set bitset to all 1's
+            list.push_back(bitset3);
+            bitset3.set();
         }
         else if((counter-3) % 5 == 0) {
-            list.push_back(bitset4);//add it to the vector
-            bitset4.set();//set bitset to all 1's
+            list.push_back(bitset4);
+            bitset4.set();
         }
         else if((counter-4) % 5 == 0) {
-            list.push_back(bitset5);//add it to the vector
-            bitset5.set();//set bitset to all 1's
+            list.push_back(bitset5);
+            bitset5.set();
         }
         if(list.size() > 10) {
             list.erase(list.begin());
@@ -88,6 +106,10 @@ void updatePrediction(int outcome) {//creates a 5-bit bitset of each history of 
     return;
 }
 
+/**
+ * Opens branch files and output file and loops through the branch file to get the outcome
+ * Compares the outcome to the prediction and outputs the result to the output file
+ */
 int main() {
     ifstream inFile;
     ofstream outFile;
